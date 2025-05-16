@@ -1,0 +1,16 @@
+extends ../layout
+
+block content
+  h1 Registrar nuevo préstamo
+  form(action='/prestamos/nuevo', method='POST')
+    label Usuario:
+    select(name='usuarioId', required)
+      each usuario in usuarios
+        option(value=usuario.id) #{usuario.nombre}
+    br
+    label Libro:
+    select(name='libroId', required)
+      each libro in libros
+        option(value=libro.id) #{libro.titulo}
+    br
+    button(type='submit') Registrar préstamo
