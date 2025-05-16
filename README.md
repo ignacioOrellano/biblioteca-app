@@ -54,7 +54,7 @@ Los alumnos desarrollarán una pequeña aplicación web para gestionar el prést
 
 1. Clona este repositorio:
    ```bash
-   git clone <URL_DEL_REPOSITORIO>
+   git clone https://github.com/ignacioOrellano/biblioteca-app.git
    ```
 2. Ingresa al directorio del proyecto:
    ```bash
@@ -71,6 +71,6 @@ Los alumnos desarrollarán una pequeña aplicación web para gestionar el prést
    ```
 6. Inicia la aplicación:
    ```bash
-   npm start
+   npm run start
    ```
 7. Accede a la app en tu navegador en [http://localhost:3000](http://localhost:3000)
