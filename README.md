@@ -1,4 +1,4 @@
-# Gestor de Bibliotecas Comunitarias
+# Gestor de Bibliotecas Comunitarias (MYSQL SOLO)
 
 ## Descripción general
 
@@ -43,8 +43,8 @@ Los alumnos desarrollarán una pequeña aplicación web para gestionar el prést
 ## Tecnologías a aplicar
 
 - **Node.js + Express:** backend y rutas.
-- **Sequelize:** modelos, relaciones (`belongsTo`, `hasMany`), consultas.
-- **SQL:** comprensión del modelo relacional (pueden ver el SQL generado por Sequelize). Mediante MYSQL
+- **MySQL:** manipulación directa de la base de datos relacional, sin uso de ORM.
+- **SQL:** comprensión y uso del modelo relacional mediante sentencias SQL nativas.
 - **PUG:** vistas simples para mostrar listados y formularios.
 - **CSS (opcional):** para estilizar las vistas (si quieren).
 
@@ -67,7 +67,7 @@ Los alumnos desarrollarán una pequeña aplicación web para gestionar el prést
 4. Configura la base de datos MySQL y actualiza los datos de conexión en `models/db.js` si es necesario.
 5. Sincroniza la base de datos y carga datos de ejemplo (opcional):
    ```bash
-   node seeders/seed.js
+   # Ejecuta los scripts SQL en db/seed.sql y db/db.sql usando tu cliente MySQL favorito
    ```
 6. Inicia la aplicación:
    ```bash
