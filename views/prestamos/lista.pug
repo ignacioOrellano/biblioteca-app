@@ -13,8 +13,8 @@ block content
     tbody
       each prestamo in prestamos
         tr
-          td(style='border: 1px solid #000;') #{prestamo.Usuario.nombre}
-          td(style='border: 1px solid #000;') #{prestamo.Libro.titulo}
+          td(style='border: 1px solid #000;') #{prestamo.usuario_nombre}
+          td(style='border: 1px solid #000;') #{prestamo.libro_titulo}
           td(style='border: 1px solid #000;') #{prestamo.fecha_prestamo.toLocaleDateString()}
           td(style='border: 1px solid #000;')
             if !prestamo.fecha_devolucion

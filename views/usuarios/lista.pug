@@ -17,7 +17,7 @@ block content
           td(style='border: 1px solid #000;') #{usuario.nombre}
           td(style='border: 1px solid #000;') #{usuario.email}
           td(style='border: 1px solid #000;') #{usuario.dni}
-          td(style='border: 1px solid #000;') #{usuario.fecha_registro.toLocaleDateString()}
+          td(style='border: 1px solid #000;') #{usuario.fecha_registro && usuario.fecha_registro.toLocaleDateString()}
           td(style='border: 1px solid #000;')
             form(action=`/usuarios/${usuario.id}/prestamos`, method='get', style='display:inline')
               button(type='submit') Ver préstamos

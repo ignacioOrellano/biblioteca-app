@@ -25,13 +25,7 @@ app.use('/prestamos', prestamosRoutes);
 
 // Inicio del servidor
 const PORT = process.env.PORT || 3000;
-sequelize.sync({ alter: true })
-  .then(() => {
-    console.log('Modelos sincronizados');
-    app.listen(PORT, () => {
-      console.log(`Servidor iniciado en http://localhost:${PORT}`);
-    });
-  })
-  .catch((err) => {
-    console.error('Error al sincronizar modelos:', err);
-  });
+
+app.listen(PORT, () => {
+  console.log(`Servidor iniciado en http://localhost:${PORT}`);
+});

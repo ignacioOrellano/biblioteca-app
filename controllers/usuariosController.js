@@ -1,24 +1,23 @@
 const Usuario = require('../models/Usuario');
 const Prestamo = require('../models/Prestamo');
-const { Op } = require('sequelize');
 
-async function listar(req, res) {
-  try {
-    const usuarios = await Usuario.findAll();
+function listar(req, res) {
+  Usuario.getAll((err, usuarios) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).render('usuarios/lista', {
+        error: 'Error al listar usuarios'
+      });
+    }
     res.render('usuarios/lista', { usuarios });
-  } catch (error) {
-    console.error(error);
-    res.status(500).render('usuarios/lista', {
-      error: 'Error al listar usuarios'
-    });
-  }
+  });
 }
 
-async function formulario(req, res) {
+function formulario(req, res) {
   res.render('usuarios/formulario');
 }
 
-async function crear(req, res) {
+function crear(req, res) {
   const usuario = req.body;
   // Validamos campos
   if (!usuario.nombre || !usuario.dni || !usuario.email) {
@@ -27,58 +26,72 @@ async function crear(req, res) {
     });
   }
 
-  try {
-    // Validar que el usuario no exista con el mismo dni o email
-    // SELECT * FROM usuarios WHERE dni = ? OR email = ?
-    const usuarioExistente = await Usuario.findOne({
-      where: {
-        [Op.or]: {
-          dni: usuario.dni,
-          email: usuario.email
-        }
-      }
-    });
+  // Validar que el usuario no exista con el mismo dni o email
+  // SELECT * FROM usuarios WHERE dni = ? OR email = ?
+  Usuario.getById(usuario.dni, (err, usuarioExistente) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).render('usuarios/formulario', {
+        error: 'Error al verificar el usuario'
+      });
+    }
     if (usuarioExistente) {
       return res.status(400).render('usuarios/formulario', {
         error: 'El usuario ya existe'
       });
     }
-
-    await Usuario.create(usuario);
-    res.redirect('/usuarios');
-  } catch (error) {
-    console.error(error);
-    res.status(500).render('usuarios/formulario', {
-      error: 'Error al crear el usuario'
-    });
-  }
+    Usuario.create(usuario, (err, result) => {
+      if (err) {
+        console.error(err);
+        return res.status(500).render('usuarios/formulario', {
+          error: 'Error al crear el usuario'
+        });
+      }
+      res.redirect('/usuarios');
+    })
+  });
 }
 
-async function prestamos(req, res) {
-  try {
-    const usuario = await Usuario.findByPk(req.params.id, {
-      include: Prestamo
+function prestamos(req, res) {
+  const userId = req.params.id;
+  Usuario.getById(userId, (err, usuario) => {
+    if (err || !usuario) {
+      console.error(err);
+      return res.status(500).render('usuarios/prestamos', {
+        error: 'Error al buscar el usuario'
+      });
+    }
+    Prestamo.getByUserId(userId, (err2, prestamos) => {
+      if (err2) {
+        console.error(err2);
+        return res.status(500).render('usuarios/prestamos', {
+          error: 'Error al listar prestamos'
+        });
+      }
+      res.render('usuarios/prestamos', { usuario, prestamos });
     });
-    res.render('usuarios/prestamos', { usuario, prestamos: usuario.Prestamos });
-  } catch (error) {
-    console.error(error);
-    res.status(500).render('usuarios/prestamos', {
-      error: 'Error al listar prestamos'
-    });
-  }
+  });
 }
 
-async function cantidadPrestamos(req, res) {
-  try {
-    const usuario = await Usuario.findByPk(req.params.id);
-    const cantidad = await Prestamo.count({ where: { usuarioId: usuario.id, fecha_devolucion: null } });
-    res.render('usuarios/cantidad', { usuario, cantidad });
-  } catch (error) {
-    console.error(error);
-    res.status(500).render('usuarios/cantidad', {
-      error: 'Error al contar prestamos'
+function cantidadPrestamos(req, res) {
+  const userId = req.params.id;
+  Usuario.getById(userId, (err, usuario) => {
+    if (err || !usuario) {
+      console.error(err);
+      return res.status(500).render('usuarios/cantidad', {
+        error: 'Error al buscar el usuario'
+      });
+    }
+    Prestamo.countActivosByUserId(userId, (err2, cantidad) => {
+      if (err2) {
+        console.error(err2);
+        return res.status(500).render('usuarios/cantidad', {
+          error: 'Error al contar prestamos'
+        });
+      }
+      res.render('usuarios/cantidad', { usuario, cantidad });
     });
-  }
+  });
 }
 
 module.exports = {
