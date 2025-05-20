@@ -34,9 +34,7 @@ async function crear(req, res) {
       });
     }
     await Libro.create(libro);
-    res.redirect('/libros', {
-      success: 'Libro creado correctamente'
-    });
+    res.redirect('/libros');
   } catch (error) {
     console.log(error);
     res.status(500).render('libros/formulario', {
