@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const app = express();
+require('./models/sync'); // Sincronizar explicitamente los modelos
 const sequelize = require('./models/db');
 
 // Importar las rutas
