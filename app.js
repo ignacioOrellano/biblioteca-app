@@ -29,7 +29,7 @@ const PORT = process.env.PORT || 3000;
 sequelize.sync({ alter: true })
   .then(() => {
     console.log('Modelos sincronizados');
-    app.listen(PORT, () => {
+    app.listen(PORT, '::', () => {
       console.log(`Servidor iniciado en http://localhost:${PORT}`);
     });
   })
