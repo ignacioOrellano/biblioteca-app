@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const app = express();
@@ -25,7 +26,7 @@ app.use('/libros', librosRoutes);
 app.use('/prestamos', prestamosRoutes);
 
 // Inicio del servidor
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 sequelize.sync({ alter: true })
   .then(() => {
     console.log('Modelos sincronizados');
