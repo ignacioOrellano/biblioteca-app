@@ -1,7 +1,11 @@
 const express = require('express');
 const prestamosController = require('../controllers/prestamosController');
+const { requireAuth } = require('../middleware/auth');
 
 const router = express.Router();
+
+// Proteger todas las rutas de préstamos con autenticación
+router.use(requireAuth);
 
 router.get('/', prestamosController.listar);
 router.get('/nuevo', prestamosController.formulario);

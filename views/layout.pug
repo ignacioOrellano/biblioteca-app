@@ -4,8 +4,29 @@ html
     title Biblioteca Comunitaria
   body
     nav
-      a(href='/') Inicio |
-      a(href='/libros') Libros |
-      a(href='/usuarios') Usuarios |
-      a(href='/prestamos') Préstamos
+      div.items
+        a(href='/') Inicio
+        a(href='/libros') Libros
+        a(href='/usuarios') Usuarios
+        a(href='/prestamos') Préstamos
+      div.login
+        if currentUser
+          span Bienvenido, #{currentUser.nombre}
+          a(href='/logout') Cerrar Sesión
+        else
+          a(href='/login') Login
     block content
+  
+  style.
+    nav {
+      display: flex;
+      justify-content: space-between;
+    }
+    div.items{
+      display: flex;
+      gap: 10px;
+    }
+    div.login{
+      display:flex;
+      gap: 10px;
+    }
