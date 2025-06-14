@@ -7,6 +7,16 @@ class Usuario extends Model {
   async validarPassword(password) {
     return await bcrypt.compare(password, this.password);
   }
+
+  // Método para verificar si es administrador
+  esAdmin() {
+    return this.rol === 'admin';
+  }
+
+  // Método para verificar si es usuario normal
+  esUsuario() {
+    return this.rol === 'usuario';
+  }
 }
 
 Usuario.init(
@@ -28,6 +38,11 @@ Usuario.init(
       type: DataTypes.INTEGER,
       allowNull: false,
       unique: true
+    },
+    rol: {
+      type: DataTypes.ENUM('admin', 'usuario'),
+      allowNull: false,
+      defaultValue: 'usuario'
     },
     fecha_registro: {
       type: DataTypes.DATE,

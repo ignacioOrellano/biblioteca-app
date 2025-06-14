@@ -35,9 +35,29 @@ async function devolver(req, res) {
   res.redirect('/prestamos');
 }
 
+async function porUsuario(req, res) {
+  try {
+    const prestamos = await Prestamo.findAll({
+      where: { 
+        usuarioId: req.session.userId,
+        fecha_devolucion: null 
+      },
+      include: [Usuario, Libro]
+    });
+    res.render('prestamos/lista', { prestamos });
+  } catch (error) {
+    console.error(error);
+    res.status(500).render('prestamos/lista', {
+      error: 'Error al listar tus préstamos',
+      prestamos: []
+    });
+  }
+}
+
 module.exports = {
   listar,
   formulario,
   crear,
-  devolver
+  devolver,
+  porUsuario
 };

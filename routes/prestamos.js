@@ -8,6 +8,7 @@ const router = express.Router();
 router.use(requireAuth);
 
 router.get('/', prestamosController.listar);
+router.get('/usuario', prestamosController.porUsuario);
 router.get('/nuevo', prestamosController.formulario);
 router.post('/nuevo', prestamosController.crear);
 router.post('/:id/devolver', prestamosController.devolver);

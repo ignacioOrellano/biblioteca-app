@@ -8,11 +8,11 @@ async function seed() {
 
   // Usuarios
   const usuarios = await Usuario.bulkCreate([
-    { nombre: 'Administrador', email: 'admin@biblioteca.com', password: 'admin123', dni: 1 },
-    { nombre: 'Juan Pérez', email: 'juan@example.com', password: 'password123', dni: 12345678 },
-    { nombre: 'Ana Gómez', email: 'ana@example.com', password: 'password123', dni: 23456789 },
-    { nombre: 'Carlos Ruiz', email: 'carlos@example.com', password: 'password123', dni: 34567890 },
-    { nombre: 'María López', email: 'maria@example.com', password: 'password123', dni: 45678901 }
+    { nombre: 'Pedro Picapiedra', email: 'pp_admin@biblioteca.com', password: 'admin123', dni: 1, rol: 'admin' },
+    { nombre: 'Juan Pérez', email: 'juan@example.com', password: 'password123', dni: 12345678, rol: 'usuario' },
+    { nombre: 'Ana Gómez', email: 'ana@example.com', password: 'password123', dni: 23456789, rol: 'usuario' },
+    { nombre: 'Carlos Ruiz', email: 'carlos@example.com', password: 'password123', dni: 34567890, rol: 'usuario' },
+    { nombre: 'María López', email: 'maria@example.com', password: 'password123', dni: 45678901, rol: 'usuario' }
   ], {
     individualHooks: true // Esto habilitará los hooks de beforeCreate
   });

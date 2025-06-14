@@ -45,6 +45,7 @@ const authenticateUser = async (req, res, next) => {
     req.session.userId = usuario.id;
     req.session.dni = usuario.dni;
     req.session.nombre = usuario.nombre;
+    req.session.rol = usuario.rol;    
 
     // Continuar al siguiente middleware o ruta
     next();
