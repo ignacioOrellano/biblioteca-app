@@ -9,7 +9,9 @@ html
         if currentUser
           a(href='/libros') Libros
           a(href='/usuarios') Usuarios
-          a(href='/prestamos') Préstamos
+          if currentUser.rol == 'admin'
+            a(href='/prestamos') Préstamos
+          a(href='/prestamos/usuario') Mis Préstamos
       div.login
         if currentUser
           span Bienvenido, #{currentUser.nombre} (#{currentUser.rol})

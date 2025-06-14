@@ -7,7 +7,7 @@ const router = express.Router();
 // Proteger todas las rutas de préstamos con autenticación
 router.use(requireAuth);
 
-router.get('/', prestamosController.listar);
+router.get('/', requireAdmin, prestamosController.listar);
 router.get('/usuario', prestamosController.porUsuario);
 router.get('/nuevo', requireAdmin, prestamosController.formulario);
 router.post('/nuevo', requireAdmin, prestamosController.crear);
