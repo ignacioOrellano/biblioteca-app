@@ -1,6 +1,6 @@
 const express = require('express');
 const prestamosController = require('../controllers/prestamosController');
-const { requireAuth } = require('../middleware/auth');
+const { requireAuth, requireAdmin } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -9,8 +9,8 @@ router.use(requireAuth);
 
 router.get('/', prestamosController.listar);
 router.get('/usuario', prestamosController.porUsuario);
-router.get('/nuevo', prestamosController.formulario);
-router.post('/nuevo', prestamosController.crear);
+router.get('/nuevo', requireAdmin, prestamosController.formulario);
+router.post('/nuevo', requireAdmin, prestamosController.crear);
 router.post('/:id/devolver', prestamosController.devolver);
 
 module.exports = router;

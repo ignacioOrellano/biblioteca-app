@@ -2,7 +2,8 @@ extends ../layout
 
 block content
   h1 Préstamos activos
-  a(href='/prestamos/nuevo') Nuevo préstamo
+  if currentUser.rol == 'admin'
+    a(href='/prestamos/nuevo') Nuevo préstamo
   table(style='border-collapse: collapse;')
     thead
       tr

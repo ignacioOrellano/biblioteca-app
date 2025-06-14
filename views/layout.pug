@@ -6,12 +6,13 @@ html
     nav
       div.items
         a(href='/') Inicio
-        a(href='/libros') Libros
-        a(href='/usuarios') Usuarios
-        a(href='/prestamos') Préstamos
+        if currentUser
+          a(href='/libros') Libros
+          a(href='/usuarios') Usuarios
+          a(href='/prestamos') Préstamos
       div.login
         if currentUser
-          span Bienvenido, #{currentUser.nombre}
+          span Bienvenido, #{currentUser.nombre} (#{currentUser.rol})
           a(href='/logout') Cerrar Sesión
         else
           a(href='/login') Login

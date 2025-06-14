@@ -72,6 +72,14 @@ const getCurrentUser = async (req, res, next) => {
   next();
 };
 
+// Middleware para verificar si el usuario es administrador
+const requireAdmin = (req, res, next) => {
+  if (!req.session.userId || req.session.rol !== 'admin') {
+    return res.status(403).send('Acceso denegado');
+  }
+  next();
+};
+
 // Función para logout
 const logout = (req, res) => {
   req.session.destroy((err) => {
@@ -88,5 +96,6 @@ module.exports = {
   requireAuth,
   authenticateUser,
   getCurrentUser,
-  logout
+  logout,
+  requireAdmin
 };

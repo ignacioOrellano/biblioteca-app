@@ -2,7 +2,8 @@ extends ../layout
 
 block content
   h1 Libros disponibles
-  a(href='/libros/nuevo') Nuevo libro
+  if currentUser.rol == 'admin'
+    a(href='/libros/nuevo') Nuevo libro
   table(style='border-collapse: collapse;')
     thead
       tr

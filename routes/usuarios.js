@@ -1,6 +1,6 @@
 const express = require('express');
 const usuariosController = require('../controllers/usuariosController');
-const { requireAuth } = require('../middleware/auth');
+const { requireAuth, requireAdmin } = require('../middleware/auth');
 
 const router = express.Router();
 
@@ -8,8 +8,8 @@ const router = express.Router();
 router.use(requireAuth);
 
 router.get('/', usuariosController.listar);
-router.get('/nuevo', usuariosController.formulario);
-router.post('/nuevo', usuariosController.crear);
+router.get('/nuevo', requireAdmin, usuariosController.formulario);
+router.post('/nuevo', requireAdmin, usuariosController.crear);
 router.get('/:id/prestamos', usuariosController.prestamos);
 router.get('/:id/cantidad', usuariosController.cantidadPrestamos);
 
